@@ -36,6 +36,16 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
+    parr->pdata = malloc(50);
+    char size[10];
+    char *endptr;
+    long sizeNum;
+    char arrValue[10];
+    if (fgets(size, 10, stdin) != NULL)
+    {
+        sizeNum = strtol.size, &endptr, 10;
+        parr->size = sizeNum;
+    }
     
 }
 
