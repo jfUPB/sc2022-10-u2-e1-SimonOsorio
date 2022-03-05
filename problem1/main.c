@@ -43,9 +43,9 @@ void getArray(struct array *parr)
     char arrValue[10];
     if (fgets(size, 10, stdin) != NULL)
     {
-        sizeNum = strtol.size, &endptr, 10;
+        sizeNum = strtol(size, &endptr, 10);
         parr->size = sizeNum;
-        for(i = 0, i < array.size, i++)
+        for(int i = 0; i < sizeNum; i++)
         {
             fgets(arrValue, 10, stdin);
             *(parr->pdata + i) = strtol(arrValue, &endptr, 10); 
