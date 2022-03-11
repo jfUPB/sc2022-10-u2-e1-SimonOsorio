@@ -36,11 +36,42 @@ void printArray(struct array *parr)
 
 void getArray(struct array *parr)
 {
+    parr->pdata = malloc(50);  //Se asigna la posicion a la memoria en el heap
+    char size[10]; //Se asigna el valor maximo de lo que ocupara el arreglo
+    char *endptr; //Se define donde se guardaran los valores no utilizados de la cantidad total de caracteres
+    long sizeNum; //En esta variable se guarda el numero convertido de los caracteres ingresados del size
+    char arrValue[10]; //En este arreglo se guardan los numeros/valores del arreglo
+    if (fgets(size, 10, stdin) != NULL) //Se guarda en el arreglo size, el input que ingresa el usuario
+    {
+        sizeNum = strtol(size, &endptr, 10); //Se convierte el input de caracteres a numeros, en este caso en un long
+        parr->size = sizeNum; //Se asigna a la variable size del struct, en la posicion de memoria, lo que ingreso el usuario
+        for(int i = 0; i < sizeNum; i++) //Se crea un ciclo para ingresar cada valor del arreglo principal
+        {
+            fgets(arrValue, 10, stdin); //Se lee el input y se guarda en arrValue
+            *(parr->pdata + i) = strtol(arrValue, &endptr, 10); //Se convierte el input en caracteres a numeros, y se asigna en la posicion de memoria
+        }
+    }
     
 }
 
 void arrayCommon(struct array *arrIn1, struct array *arrIn2, struct array *arrOut)
 {
+    arrOut->pdata = malloc(50); //Se asigna la posicion a la memoria en el heap, del arreglo donde se guardara la interseccion
+    int pos = 0, a = 0; //Se inicializa la posicion del size en 0, y a como variable temporal para despues asignar los valores de arrOut
+    for (int i = 0; i < arrIn1->size; i++) //Se crea un ciclo para leer los valores de arrIn1
+    {
+        for (int j = 0; j < arrIn2->size; j++) //Se crea un ciclo para leer los valores de arrIn2
+        {
+            if (*(arrIn1->pdata + i) == *(arrIn2->pdata + j)) //Se comparan los valores de arrIn2 para cada valor de arrIn1, para saber si son iguales o no
+            {
+                for (int k = 0; k < pos; k++){ if (*(arrOut->pdata + k) == *(arrIn1->pdata + i)){ a = 1; } } //En caso de ser iguales se revisa en los valores guardados en arrOut si el valor ya esta para no repetir
+                if (a != 1) { *(arrOut->pdata + pos) = *(arrIn1->pdata + i); pos++;} //Si no esta ya guardado el valor en arrOut, se guarda y se aumenta en uno la variable pos, que luego sera el size
+                a = 0; //Se reinicia la variable a, que define si estuvo repetido el numero o no
+            }
+            
+        }        
+    }
+    arrOut->size = pos; //Se asigna a la variable size del struct, en la posicion de memoria, el valor que hay en pos, que contiene la cantidad de datos en arrOut
     
 }
 
